@@ -11,7 +11,7 @@ from infofile import infos
 from keyTranslate import keyTranslate
 from dataSets import dataSets, totRealLum
 
-langMode = "C" # coding language to use for the analysis script
+langMode = "py" # coding language to use for the analysis script
 totalRealLum = 10.064 # total measured integrated luminosity in inverse femtobarns
 
 def runAnalysis(key, fast):
