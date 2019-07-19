@@ -19,4 +19,3 @@ dataSets = {
     "ggh": "mc15_13TeV.345060.PwPy8EG_NNLOPS_nnlo_30_ggH125_ZZ4l.2lep_raw.root"
 }
 
-Lewis smells 
