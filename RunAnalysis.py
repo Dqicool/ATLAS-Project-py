@@ -9,10 +9,10 @@ from Draw import Draw
 from DrawC import DrawC
 from infofile import infos
 from keyTranslate import keyTranslate
-from dataSets import dataSets, totRealLum
+from dataSets import dataSets, totRealLum, realList
 
 langMode = "py" # coding language to use for the analysis script
-totalRealLum = 10.064 # total measured integrated luminosity in inverse femtobarns
+#totalRealLum = 10.064 # total measured integrated luminosity in inverse femtobarns
 
 def runAnalysis(key, fast):
     """
@@ -22,14 +22,12 @@ def runAnalysis(key, fast):
     filename = dataSets[key]
 
     # get luminosity weight if data is MC
-    if key in ("a","b","c","d"):
+    if key in realList:
         lumStr = "1"
     else:
-        newKey = keyTranslate[key] # use dataset naming convention of ATLAS
-
         # calculate luminosity weight
-        lumWeight = totalRealLum * 1000 * infos[newKey]["xsec"] / (infos[newKey]["sumw"] *
-                infos[newKey]["red_eff"])
+        lumWeight = totRealLum * 1000 * infos[key]["xsec"] / (infos[key]["sumw"] *
+                infos[key]["red_eff"])
 
         lumStr = "%.5E" % (lumWeight)
 
@@ -76,7 +74,7 @@ def combine(files):
 
 # get list of decay chains from user
 print("Please enter a comma-seperated list of decay chains. Use '+' to add data sets together:")
-userInput = input().lower() # get input and remove case-sensitivity
+userInput = input() # get input
 userInput = userInput.replace(" ","") # remove any spaces from list
 series = userInput.split(",") # get list of series of chains from string
 
