@@ -3,9 +3,21 @@
 # total luminosity of the real data in inverse femtobarns
 totRealLum = 10.064
 
+# list of directories to check for .root files
+dirs = [
+        "/data/OpenData/",
+        "/data/OpenData/GamGam/Data/",
+        "/data/OpenData/GamGam/MC/",
+        "/home/pphysics1/data/1lep/Data/",
+        "/home/pphysics1/data/1lep/MC/",
+        "/home/pphysics1/data/2lep/Data/",
+        "/home/pphysics1/data/2lep/MC/",
+]
+
 # list of keys which correspond to real datasets
 realList = ["A", "B", "C", "D",
-        "A_1lep", "B_1lep", "C_1lep", "D_1lep"]
+        "A_1lep", "B_1lep", "C_1lep", "D_1lep",
+        "A_yy", "B_yy", "C_yy", "D_yy"]
 
 # dictionary to identify data by short names rather than long file names, contains
 # luminosities for each dataset in femtobarns
@@ -13,10 +25,17 @@ dataSets = {
     # from /data/OpenData directory
 
     # diphoton data
-    "A_yy": "dataA_yy.root"
-    "B_yy": "dataB_yy.root"
-    "C_yy": "dataC_yy.root"
-    "D_yy": "dataD_yy.root"
+    "A_yy": "dataA_yy.root",
+    "B_yy": "dataB_yy.root",
+    "C_yy": "dataC_yy.root",
+    "D_yy": "dataD_yy.root",
+
+    # diphoton MC
+    "ttHyy": "mc15_13TeV.341081.aMcAtNloHerwigppEG_UEEE5_CTEQ6L1_CT10ME_ttH125_gamgam.gamgam_raw.root",
+    "ggHyy": "mc15_13TeV.343981.PwPy8EG_NNLOPS_nnlo_30_ggH125_gamgam.gamgam_raw.root",
+    "VBFHyy": "mc15_13TeV.345041.PwPy8EG_NNPDF30_AZNLOCTEQ6L1_VBFH125_gamgam.gamgam_raw.root",
+    "WHyy": "mc15_13TeV.345318.PwPy8EG_NNPDF30_AZNLO_WpH125J_Hyy_Wincl_MINLO.gamgam_raw.root",
+    "ZHyy": "mc15_13TeV.345319.PwPy8EG_NNPDF30_AZNLO_ZH125J_Hyy_Zincl_MINLO.gamgam_raw.root",
 
     # 2 lepton measured data
     "A": "dataA_2lep.root",

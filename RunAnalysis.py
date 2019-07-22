@@ -1,7 +1,7 @@
 # script which runs Draw multiple times for different data sets
 
 import sys
-sys.path.insert(0, "backend")
+sys.path.insert(0, "backend") # allow code to be imported from subdirectory
 
 import ROOT as r
 import os
@@ -26,8 +26,14 @@ def runAnalysis(key, fast):
         lumStr = "1"
     else:
         # calculate luminosity weight
-        lumWeight = totRealLum * 1000 * infos[key]["xsec"] / (infos[key]["sumw"] *
+        # if it does not work try again without "_1lep" or "_2lep" suffix for key
+        try:
+            lumWeight = totRealLum * 1000 * infos[key]["xsec"] / (infos[key]["sumw"] *
                 infos[key]["red_eff"])
+        except KeyError:
+            shortKey = key[:-5]
+            lumWeight = (totRealLum * 1000 * infos[shortKey]["xsec"] /
+                (infos[shortKey]["sumw"] * infos[shortKey]["red_eff"]))
 
         lumStr = "%.5E" % (lumWeight)
 
@@ -112,10 +118,7 @@ if chainsValid:
             fastName = ""
 
     for i in range(len(chains)):
-
-        # loop over chains in the series and run the analysis
-        for j in range(len(chains[i])):
-            chain = chains[i][j]
+# loop over chains in the series and run the analysis for j in range(len(chains[i])): chain = chains[i][j]
             runAnalysis(chain,fastMode)
 
             # move the output to a different directory

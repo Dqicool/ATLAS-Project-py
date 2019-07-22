@@ -2,14 +2,22 @@
 # contains some back-end functionality such as loading in the data and setting weights
 import ROOT as r
 import time
+from os import listdir
 from Analysis import Analyse
+from dataSets import dirs
 
 def Draw(fileName,lumFactor,fastMode):
 
     start_time = time.time() # get start time
 
-    # open the file
-    openFile = r.TFile("/data/OpenData/"+fileName)
+    # search through several directories to find where the input file is located
+    for path in dirs:
+        if fileName in listdir(path):
+            correctPath = path
+            break
+
+    # open the input data
+    openFile = r.TFile(correctPath+fileName)
 
     # open output file and canvas
     outFile = r.TFile("outfile.root","RECREATE") # file to write output to
