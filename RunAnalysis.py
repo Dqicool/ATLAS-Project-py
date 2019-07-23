@@ -11,7 +11,7 @@ from infofile import infos
 from keyTranslate import keyTranslate
 from dataSets import dataSets, totRealLum, realList, dataCombos
 
-langMode = "py" # coding language to use for the analysis script
+langMode = "C" # coding language to use for the analysis script
 
 def fastStr(fMode):
     """

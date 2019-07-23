@@ -22,16 +22,26 @@ dirs = [
 ]
 
 # list of keys which correspond to real datasets
-realList = ["A", "B", "C", "D",
+realList = [
+        "A", "B", "C", "D",
         "A_1lep", "B_1lep", "C_1lep", "D_1lep",
         "A_yy", "B_yy", "C_yy", "D_yy",
         "A_1tau0lep", "B_1tau0lep", "C_1tau0lep", "D_1tau0lep",
         "A_2tau", "B_2tau", "C_2tau", "D_2tau",
-        "A_1tau1lep", "B_1tau1lep", "C_1tau1lep", "D_1tau1lep"]
+        "A_1tau1lep", "B_1tau1lep", "C_1tau1lep", "D_1tau1lep"
+        ]
 
 # dictionary of combinations of keys to be analysed together when a single string is
 # inputted by the user
 dataCombos = {
+        # real data
+        "2lep": ["A", "B", "C", "D"],
+        "1lep": ["A_1lep", "B_1lep", "C_1lep", "D_1lep"],
+        "yy": ["A_yy", "B_yy", "C_yy", "D_yy"],
+        "1tau0lep": ["A_1tau0lep", "B_1tau0lep", "C_1tau0lep", "D_1tau0lep"],
+        "1tau1lep": ["A_1tau1lep", "B_1tau1lep", "C_1tau1lep", "D_1tau1lep"],
+        "2tau": ["A_2tau", "B_2tau", "C_2tau", "D_2tau"],
+
         # W
         "Wplus": ["Wplusenu","Wplusmunu","Wplustaunu"],
         "Wminus": ["Wminusenu","Wminusmunu","Wminustaunu"],

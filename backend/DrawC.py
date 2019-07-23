@@ -10,7 +10,7 @@ def DrawC(filename,lumStr,fast):
     path = "/data/OpenData/" + filename 
 
     # load in CLoop.C
-    r.gROOT.ProcessLine(".L CLoop.C")
+    r.gROOT.ProcessLine(".L backend/CLoop.C")
 
     # load in tree from file
     r.gROOT.ProcessLine("TFile* f = new TFile(\""+path+"\")")

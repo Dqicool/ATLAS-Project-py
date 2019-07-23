@@ -11,14 +11,22 @@
 #include <TROOT.h>
 #include <TChain.h>
 #include <TFile.h>
-
-// Header file for the classes stored in the TTree if any.
-#include "vector"
-#include "vector"
-#include "vector"
-#include "vector"
+#include <TH1.h>
+#include <TH2.h>
+#include <TStyle.h>
+#include <TCanvas.h>
+#include <iostream>
+#include <vector>
+#include <time.h>
+#include <math.h>
 
 class CLoop {
+   void Style(); 
+   void Book();
+   void Fill();
+
+   #include "../Analysis.h"
+
 public :
    TTree          *fChain;   //!pointer to the analyzed TTree or TChain
    Int_t           fCurrent; //!current Tree number in a TChain
@@ -212,9 +220,6 @@ public :
    virtual void     Loop(double lumFactor, bool fastMode);
    virtual Bool_t   Notify();
    virtual void     Show(Long64_t entry = -1);
-   virtual bool     Isolated(int l);
-   virtual bool     Paired(int l0, int l1);
-   virtual void     Style(TH1F *hist, const char* xaxis, const char* yaxis);
 };
 
 #endif
