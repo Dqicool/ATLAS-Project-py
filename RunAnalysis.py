@@ -118,7 +118,9 @@ if chainsValid:
             fastName = ""
 
     for i in range(len(chains)):
-# loop over chains in the series and run the analysis for j in range(len(chains[i])): chain = chains[i][j]
+        # loop over chains in the series and run the analysis
+        for j in range(len(chains[i])):
+            chain = chains[i][j]
             runAnalysis(chain,fastMode)
 
             # move the output to a different directory
