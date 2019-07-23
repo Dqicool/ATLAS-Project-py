@@ -9,10 +9,18 @@ from Draw import Draw
 from DrawC import DrawC
 from infofile import infos
 from keyTranslate import keyTranslate
-from dataSets import dataSets, totRealLum, realList
+from dataSets import dataSets, totRealLum, realList, dataCombos
 
 langMode = "py" # coding language to use for the analysis script
-#totalRealLum = 10.064 # total measured integrated luminosity in inverse femtobarns
+
+def fastStr(fMode):
+    """
+    Return "_fast" if fMode is true, ""  otherwise
+    """
+    if fMode:
+        return "_fast"
+    else:
+        return ""
 
 def runAnalysis(key, fast):
     """
@@ -43,14 +51,18 @@ def runAnalysis(key, fast):
     else:
         Draw(filename,lumStr,fast)
 
-def combine(files):
+    # move the output to a different directory
+    os.system("mv outfile.root out" + langMode + "/" + key + fastStr(fast) + ".root")
+
+def combine(files, fast):
     """
     function to get a list of .root files containing histograms and
     add all the histograms together
     """
+
     # store histograms from the first section of data in a list
     totHist = []
-    sec0 = r.TFile("out"+langMode+"/"+files[0]+fastName+".root") # first file
+    sec0 = r.TFile("out"+langMode+"/"+files[0]+fastStr(fast)+".root") # first file
     key0 = sec0.GetListOfKeys() # first list of keys
     for j in range(len(key0)):
         obj0 = sec0.Get(key0[j].GetName()) # get first object
@@ -60,7 +72,7 @@ def combine(files):
     # loop over other output files
     for i in range(1,len(files)):
         # read in output file for this section of data
-        secFile = r.TFile("out" + langMode + "/" + files[i] + fastName + ".root")
+        secFile = r.TFile("out" + langMode + "/" + files[i] + fastStr(fast) + ".root")
         
         # get histogram keys
         keys = secFile.GetListOfKeys()
@@ -70,10 +82,10 @@ def combine(files):
             obj = secFile.Get(keys[j].GetName()) # get object
             if obj.InheritsFrom("TH1"): # if object is a histogram add it on
                 totHist[j].Add(obj)
-    
+
     # save the combined histograms to a file
     name = "_".join(files) # name of output file
-    totFile = r.TFile("out"+langMode+"/"+ name + fastName + ".root","RECREATE")
+    totFile = r.TFile("out"+langMode+"/"+ name + fastStr(fast) + ".root","RECREATE")
     for hist in totHist:
         hist.Write()
     totFile.Close()
@@ -96,7 +108,7 @@ chainsValid = True
 
 for i in range(len(chains)):
     for j in range(len(chains[i])):
-        if not (chains[i][j] in dataSets.keys()):
+        if not ((chains[i][j] in dataSets.keys()) or (chains[i][j] in dataCombos.keys())):
             print("Sorry I don't recognise " + chains[i][j] + " as a valid data set.")
             chainsValid = False
 
@@ -111,21 +123,35 @@ if chainsValid:
         if useFast in "yes":
             answered = True
             fastMode = True
-            fastName = "_fast"
         elif useFast in "no":
             answered = True
             fastMode = False
-            fastName = ""
 
     for i in range(len(chains)):
         # loop over chains in the series and run the analysis
         for j in range(len(chains[i])):
             chain = chains[i][j]
-            runAnalysis(chain,fastMode)
 
-            # move the output to a different directory
-            os.system("mv outfile.root out" + langMode + "/" + chain + fastName + ".root")
+            # print a message so the user knows what's up
+            print("Analysing "+chain+"...")
+
+            # if the decay chain corresponds to data in more than one file then
+            # analyse all the files and add them
+            if (chain in dataCombos.keys()):
+                for subChain in dataCombos[chain]:
+                    print(subChain)
+                    runAnalysis(subChain, fastMode)
+                combine(dataCombos[chain], fastMode)
+
+                # rename the outputted file to use the input key
+                oldName = "_".join(dataCombos[chain])+fastStr(fastMode)+".root"
+                os.system("mv out"+langMode+"/"+oldName+" out"+langMode+"/"+chain+
+                        fastStr(fastMode)+".root")
+                
+            # otherwise run the analysis for the single file
+            else:
+                runAnalysis(chain,fastMode)
 
         # combine chains in the series if it contains more than one chain
         if (len(chains[i])>1):
-            combine(chains[i])
+            combine(chains[i], fastMode)

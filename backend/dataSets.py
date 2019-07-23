@@ -13,12 +13,35 @@ dirs = [
         "/home/pphysics1/data/1lep/MC/",
         "/home/pphysics1/data/2lep/Data/",
         "/home/pphysics1/data/2lep/MC/",
+        "/home/pphysics1/data/1tau/Data/",
+        "/home/pphysics1/data/1tau/MC/",
+        "/home/pphysics1/data/2tau/Data/",
+        "/home/pphysics1/data/2tau/MC/",
+        "/home/pphysics1/data/1lep1tau/Data/",
+        "/home/pphysics1/data/1lep1tau/MC/",
 ]
 
 # list of keys which correspond to real datasets
 realList = ["A", "B", "C", "D",
         "A_1lep", "B_1lep", "C_1lep", "D_1lep",
-        "A_yy", "B_yy", "C_yy", "D_yy"]
+        "A_yy", "B_yy", "C_yy", "D_yy",
+        "A_1tau0lep", "B_1tau0lep", "C_1tau0lep", "D_1tau0lep",
+        "A_2tau", "B_2tau", "C_2tau", "D_2tau",
+        "A_1tau1lep", "B_1tau1lep", "C_1tau1lep", "D_1tau1lep"]
+
+# dictionary of combinations of keys to be analysed together when a single string is
+# inputted by the user
+dataCombos = {
+        # W
+        "Wplus": ["Wplusenu","Wplusmunu","Wplustaunu"],
+        "Wminus": ["Wminusenu","Wminusmunu","Wminustaunu"],
+        "Wplus_2lep": ["Wplusenu_2lep","Wplusmunu_2lep","Wplustaunu_2lep"],
+        "Wminus_2lep": ["Wminusenu_2lep","Wminusmunu_2lep","Wminustaunu_2lep"],
+
+        # Z
+        "Z_1lep": ["Zee_1lep","Zmumu_1lep","Ztautau_1lep"],
+        "Z": ["Zee","Zmumu","Ztautau"],
+        }
 
 # dictionary to identify data by short names rather than long file names, contains
 # luminosities for each dataset in femtobarns
@@ -228,5 +251,69 @@ dataSets = {
     "single_top_wtchan": "mc15_13TeV.410013.PwPyEG_P2012_Wt_inclusive_top.1lep_raw.root",
     "single_antitop_wtchan": "mc15_13TeV.410014.PwPyEG_P2012_Wt_inclusive_antitop.1lep_raw.root",
     "single_top_schan": "mc15_13TeV.410025.PwPyEG_P2012_SingleTopSchan_noAllHad_top.1lep_raw.root",
-    "single_antitop_schan": "mc15_13TeV.410026.PwPyEG_P2012_SingleTopSchan_noAllHad_antitop.1lep_raw.root"
+    "single_antitop_schan": "mc15_13TeV.410026.PwPyEG_P2012_SingleTopSchan_noAllHad_antitop.1lep_raw.root",
+
+    
+    # 1 tau 0 lep data
+    "A_1tau0lep": "dataA_1tau0lep.root",
+    "B_1tau0lep": "dataB_1tau0lep.root",
+    "C_1tau0lep": "dataC_1tau0lep.root",
+    "D_1tau0lep": "dataD_1tau0lep.root",
+
+    # 1 tau 0 lep MC
+    # no infofile entry for Z or top
+    "Wplustaunu": "mc15_13TeV.361102.PwPy8EG_AZNLOCTEQ6L1_Wplustaunu.1tau_raw.root",
+    "Wminustaunu": "mc15_13TeV.361105.PwPy8EG_AZNLOCTEQ6L1_Wminustaunu.1tau_raw.root",
+#    "Zee": "mc15_13TeV.361106.PwPy8EG_AZNLOCTEQ6L1_Zee.1tau_raw.root",
+#    "Zmumu": "mc15_13TeV.361107.PwPy8EG_AZNLOCTEQ6L1_Zmumu.1tau_raw.root",
+#    "single_top_schan_1lep1tau": "mc15_13TeV.410025.PwPyEG_P2012_SingleTopSchan_noAllHad_top.1tau_raw.root",
+
+
+    # 2 tau data
+    "A_2tau": "dataA_2tau.root",
+    "B_2tau": "dataB_2tau.root",
+    "C_2tau": "dataC_2tau.root",
+    "D_2tau": "dataD_2tau.root",
+
+    # 2 tau MC
+    "ggHtautau_2tau": "mc15_13TeV.341124.PwPy8EG_CT10_AZNLOCTEQ6L1_ggH125_tautauhh.2tau_raw.root",
+    "VBFHtautau_2tau": "mc15_13TeV.341157.PwPy8EG_CT10_AZNLOCTEQ6L1_VBFH125_tautauhh.2tau_raw.root",
+    "Ztautau_2tau": "mc15_13TeV.361108.PwPy8EG_AZNLOCTEQ6L1_Ztautau.2tau_raw.root",
+
+
+    # 1 lep 1 tau data
+    "A_1tau1lep":"dataA_1tau1lep.root",
+    "B_1tau1lep":"dataB_1tau1lep.root",
+    "C_1tau1lep":"dataC_1tau1lep.root",
+    "D_1tau1lep":"dataD_1tau1lep.root",
+
+    # 1 lep 1 tau MC
+    # commented datasets not in infofile
+    "ggHtautau_1tau1lep": "mc15_13TeV.341123.PwPy8EG_CT10_AZNLOCTEQ6L1_ggH125_tautaulh.1lep1tau_raw.root",
+    "VBFHtautau_1tau1lep": "mc15_13TeV.341156.PwPy8EG_CT10_AZNLOCTEQ6L1_VBFH125_tautaulh.1lep1tau_raw.root",
+    "Wplusenu_1lep1tau": "mc15_13TeV.361100.PwPy8EG_AZNLOCTEQ6L1_Wplusenu.1lep1tau_raw.root",
+    "Wplusmunu_1lep1tau": "mc15_13TeV.361101.PwPy8EG_AZNLOCTEQ6L1_Wplusmunu.1lep1tau_raw.root",
+    "Wplustaunu_1lep1tau": "mc15_13TeV.361102.PwPy8EG_AZNLOCTEQ6L1_Wplustaunu.1lep1tau_raw.root",
+    "Wminusenu_1lep1tau": "mc15_13TeV.361103.PwPy8EG_AZNLOCTEQ6L1_Wminusenu.1lep1tau_raw.root",
+    "Wminusmunu_1lep1tau": "mc15_13TeV.361104.PwPy8EG_AZNLOCTEQ6L1_Wminusmunu.1lep1tau_raw.root",
+    "Wminustaunu_1lep1tau": "mc15_13TeV.361105.PwPy8EG_AZNLOCTEQ6L1_Wminustaunu.1lep1tau_raw.root",
+    "Zee_1lep1tau": "mc15_13TeV.361106.PwPy8EG_AZNLOCTEQ6L1_Zee.1lep1tau_raw.root",
+    "Zmumu_1lep1tau": "mc15_13TeV.361107.PwPy8EG_AZNLOCTEQ6L1_Zmumu.1lep1tau_raw.root",
+    "Ztautau_1lep1tau": "mc15_13TeV.361108.PwPy8EG_AZNLOCTEQ6L1_Ztautau.1lep1tau_raw.root",
+#    "ZqqZll": "mc15_13TeV.363356.Sh_221_NNPDF30NNLO_ZqqZll.1lep1tau_raw.root",
+#    "WqqZll": "mc15_13TeV.363358.Sh_221_NNPDF30NNLO_WqqZll.1lep1tau_raw.root",
+#    "WqqWlv": "mc15_13TeV.363359.Sh_221_NNPDF30NNLO_WpqqWmlv.1lep1tau_raw.root",
+#    "WlvWqq": "mc15_13TeV.363360.Sh_221_NNPDF30NNLO_WplvWmqq.1lep1tau_raw.root",
+#    "WlvZqq": "mc15_13TeV.363489.Sh_221_NNPDF30NNLO_WlvZqq.1lep1tau_raw.root",
+#    "ZllZll": "mc15_13TeV.363490.Sh_221_NNPDF30NNLO_llll.1lep1tau_raw.root",
+#    "WlvZll": "mc15_13TeV.363491.Sh_221_NNPDF30NNLO_lllv.1lep1tau_raw.root",
+#    "llvv": "mc15_13TeV.363492.Sh_221_NNPDF30NNLO_llvv.1lep1tau_raw.root",
+#    "WlvZvv": "mc15_13TeV.363493.Sh_221_NNPDF30NNLO_lvvv.1lep1tau_raw.root",
+    "ttbar_lep_1lep1tau": "mc15_13TeV.410000.PwPyEG_P2012_ttbar_hdamp172p5_nonallhad.1lep1tau_raw.root",
+    "single_top_tchan_1lep1tau": "mc15_13TeV.410011.PwPyEG_P2012_singletop_tchan_lept_top.1lep1tau_raw.root",
+    "single_antitop_tchan_1lep1tau": "mc15_13TeV.410012.PwPyEG_P2012_singletop_tchan_lept_antitop.1lep1tau_raw.root",
+    "single_top_wtchan_1lep1tau": "mc15_13TeV.410013.PwPyEG_P2012_Wt_inclusive_top.1lep1tau_raw.root",
+    "single_antitop_wtchan_1lep1tau": "mc15_13TeV.410014.PwPyEG_P2012_Wt_inclusive_antitop.1lep1tau_raw.root",
+    "single_top_schan_1lep1tau": "mc15_13TeV.410025.PwPyEG_P2012_SingleTopSchan_noAllHad_top.1lep1tau_raw.root",
+    "single_antitop_schan_1lep1tau": "mc15_13TeV.410026.PwPyEG_P2012_SingleTopSchan_noAllHad_antitop.1lep1tau_raw.root"
 }
