@@ -56,18 +56,18 @@ void CLoop::Loop(double lumFactor, bool fastMode)
         // if (Cut(ientry) < 0) continue;
         
         // calculate event weight
-        double weight = 1;
+        double eventWeight = 1;
 
         // check if event is from real data
         if (mcWeight != 0) {
             // take product of all scale factors
-            weight = mcWeight*scaleFactor_PILEUP*scaleFactor_ELE*scaleFactor_MUON*
+            eventWeight = mcWeight*scaleFactor_PILEUP*scaleFactor_ELE*scaleFactor_MUON*
                 scaleFactor_PHOTON*scaleFactor_TAU*scaleFactor_BTAG*scaleFactor_LepTRIGGER*
                 scaleFactor_PhotonTRIGGER*scaleFactor_TauTRIGGER*scaleFactor_DiTauTRIGGER*lumFactor;
         }
 
         // fill histograms
-        Fill();
+        Fill(eventWeight);
         // end filling
     }
     

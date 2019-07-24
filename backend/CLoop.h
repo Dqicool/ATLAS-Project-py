@@ -23,7 +23,11 @@
 class CLoop {
    void Style(); 
    void Book();
-   void Fill();
+   void Fill(double weight);
+
+   bool Paired(int l0, int l1);
+   bool Isolated(int l);
+   void StyleHist(TH1F *hist, const char* xaxis, const char* yaxis);
 
    #include "../Analysis.h"
 
