@@ -51,6 +51,12 @@ dataCombos = {
         # Z
         "Z_1lep": ["Zee_1lep","Zmumu_1lep","Ztautau_1lep"],
         "Z": ["Zee","Zmumu","Ztautau"],
+
+        # Dominant Higgs -> 4 lepton production
+        "H_4lep": ["ZH125_ZZ4lep", "WH125_ZZ4lep", "VBFH125_ZZ4lep", "ggH125_ZZ4lep"],
+
+        # Dominant H->4l backgrounds
+        "H_back": ["ZZllll","Zee","Zmumu","Ztautau","ttbar_lep"]
         }
 
 # dictionary to identify data by short names rather than long file names, contains
