@@ -8,7 +8,12 @@ def Analyse(t,weighting):
 
     # Draw a histogram of number of leptons per event.
     t.Draw("lep_n >> h_lep_n(10, 0, 8)", weighting)
+    
+    # histogram of ptcone/pt
+    t.Draw("lep_ptcone30/lep_pt >> h_lep_ptnorm(100,-0.1,0.3)",weighting)
 
+    # histogram of etcone/pt
+    t.Draw("lep_etcone20/lep_pt >> h_lep_etnorm(100,-0.1,0.3)",weighting)
 
     # Selection cuts can be used to only plot data which passes certain tests.
     # For second argument in t.Draw() use (weighting + "* [selection cuts]")
@@ -29,6 +34,8 @@ def Analyse(t,weighting):
     h_lep_n = r.gDirectory.Get("h_lep_n")
     h_3lep_pt = r.gDirectory.Get("h_3lep_pt")
     h_lep_pt_mean = r.gDirectory.Get("h_lep_pt_mean")
+    h_lep_ptnorm = r.gDirectory.Get("h_lep_ptnorm")
+    h_lep_etnorm = r.gDirectory.Get("h_lep_etnorm")
 
 
     # Set style of lep_n  histogram.
@@ -43,3 +50,5 @@ def Analyse(t,weighting):
     h_lep_n.Write()
     h_3lep_pt.Write()
     h_lep_pt_mean.Write()
+    h_lep_ptnorm.Write()
+    h_lep_etnorm.Write()

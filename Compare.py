@@ -21,7 +21,8 @@ h_back.SetLineColor(r.kPink-5)
 h_res_data.SetLineColor(r.kBlack)
 
 # do fits on residuals
-h_mc.Fit("gaus")
+f1 = r.TF1("f1","gaus",110e3,135e3)
+h_res_data.Fit("f1","R")
 #h_mc.Fit("gaus")
 
 # make canvases

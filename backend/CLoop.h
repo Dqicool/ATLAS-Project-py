@@ -26,7 +26,7 @@ class CLoop {
    void Fill(double weight);
 
    bool Paired(int l0, int l1);
-   bool Isolated(int l);
+   bool Isolated(int l, double ptcut);
    void StyleHist(TH1F *hist, const char* xaxis, const char* yaxis);
 
    #include "../Analysis.h"

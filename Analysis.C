@@ -3,6 +3,8 @@
 
 #include "backend/CLoop.h"
 
+// Higgs boson analysis
+
 bool CLoop::Paired(int l0, int l1)
 {
     // check if two leptons form a same-flavour, opposite-charge pair
@@ -12,10 +14,11 @@ bool CLoop::Paired(int l0, int l1)
     else return false;
 }
 
-bool CLoop::Isolated(int l)
+bool CLoop::Isolated(int l, double ptcut)
 {
     // check if lepton l passes the isolation selection cuts
-    if (lep_pt->at(l)>10e3 and lep_etcone20->at(l)<10e3 and lep_ptcone30->at(l)<10e3)
+    double pt = lep_pt->at(l);
+    if (pt>ptcut and (lep_etcone20->at(l)/pt)<0.3 and (lep_ptcone30->at(l)/pt)<0.15)
     return true;
     else return false;
 }
@@ -72,7 +75,7 @@ void CLoop::Fill(double weight) {
                 (Paired(lepOrder[0],lepOrder[3]) and Paired(lepOrder[1],lepOrder[2]))) {
             
             // check both leptons are isolated
-            if (Isolated(lepOrder[0]) and Isolated(lepOrder[1]) and Isolated(lepOrder[2]) and Isolated(lepOrder[3])) {
+            if (Isolated(lepOrder[0],20e3) and Isolated(lepOrder[1],15e3) and Isolated(lepOrder[2],10e3) and Isolated(lepOrder[3],5e3)) {
             
                 TLorentzVector lVecs [4]; // lorentz vectors of leptons
 
