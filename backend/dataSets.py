@@ -5,20 +5,20 @@ totRealLum = 10.064
 
 # list of directories to check for .root files
 dirs = [
-        "/data/OpenData/",
-        "/data/OpenData/GamGam/Data/",
-        "/data/OpenData/GamGam/MC/",
-        "/home/pphysics1/data/GamGam/",
-        "/home/pphysics1/data/1lep/Data/",
-        "/home/pphysics1/data/1lep/MC/",
-        "/home/pphysics1/data/2lep/Data/",
-        "/home/pphysics1/data/2lep/MC/",
-        "/home/pphysics1/data/1tau/Data/",
-        "/home/pphysics1/data/1tau/MC/",
-        "/home/pphysics1/data/2tau/Data/",
-        "/home/pphysics1/data/2tau/MC/",
-        "/home/pphysics1/data/1lep1tau/Data/",
-        "/home/pphysics1/data/1lep1tau/MC/",
+        "/data/ATLAS/2lep/Data/",
+        "/data/ATLAS/2lep/MC/",
+        "/data/ATLAS/1lep/Data/",
+        "/data/ATLAS/1lep/MC/",
+        "/data/ATLAS/GamGam/Data/",
+        "/data/ATLAS/GamGam/MC/",
+        "/data/ATLAS/1tau/Data/",
+        "/data/ATLAS/1tau/MC/",
+        "/data/ATLAS/2tau/Data/",
+        "/data/ATLAS/2tau/MC/",
+        "/data/ATLAS/1lep1tau/Data/",
+        "/data/ATLAS/1lep1tau/MC/",
+        "/data/ATLAS/1fatjet1lep/Data/",
+        "/data/ATLAS/1fatjet1lep/MC/",
 ]
 
 # list of keys which correspond to real datasets
