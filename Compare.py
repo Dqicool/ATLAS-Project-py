@@ -30,6 +30,7 @@ c_compare = r.TCanvas("comparison","comparison")
 c_compare.SetFillStyle(4000)
 c_residuals = r.TCanvas("residuals","residuals")
 c_residuals.SetFillStyle(4000)
+r.gStyle.SetOptStat(1111111)
 
 # add histograms to a stack
 stack = r.THStack("stack","")
