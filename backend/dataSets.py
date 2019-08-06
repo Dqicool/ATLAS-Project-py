@@ -53,7 +53,7 @@ dataCombos = {
         "Z": ["Zee","Zmumu","Ztautau"],
 
         # Dominant Higgs -> 4 lepton production
-        "H_4lep": ["ZH125_ZZ4lep", "WH125_ZZ4lep", "VBFH125_ZZ4lep", "ggH125_ZZ4lep"],
+        "H": ["ZH125_ZZ4lep", "WH125_ZZ4lep", "VBFH125_ZZ4lep", "ggH125_ZZ4lep"],
 
         # Dominant H->4l backgrounds
         "H_back": ["ZZllll","Zee","Zmumu","Ztautau","ttbar_lep"]
