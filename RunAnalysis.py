@@ -1,4 +1,5 @@
-# script which runs Draw multiple times for different data sets
+# script which the user launches to ask which data sets to analyse, handle weighting and launch the
+# analysis
 
 import sys
 sys.path.insert(0, "backend") # allow code to be imported from subdirectory
@@ -90,68 +91,93 @@ def combine(files, fast):
         hist.Write()
     totFile.Close()
 
-# get list of decay chains from user
-print("Please enter a comma-seperated list of decay chains. Use '+' to add data sets together:")
-userInput = input() # get input
-userInput = userInput.replace(" ","") # remove any spaces from list
-series = userInput.split(",") # get list of series of chains from string
+def getInput():
+    """
+    Function to get input list of decay chains from the user and verify them
+    Returns an array of keys to analyse and a boolean with their validity
+    """
 
-# new 2d list to hold chains
-# first index is series, second is chain in the series
-chains = [[]]*len(series)
+    # get list of decay chains from user
+    print("Please enter a comma-seperated list of decay chains.")
+    print("Use '+' to add data sets together.")
+    print("Write 'text' if you would prefer to read a list from 'input.txt':")
+    userInput = input() # get input
 
-for i in range(len(series)):
-   chains[i] = series[i].split("+") 
+    # check whether to read list from file or user input
+    if "text" in userInput: 
+        # read from file, remove newlines if present
+        with open("input.txt","r") as infile:
+            userInput = infile.read().replace("\n","")
+            
+    userInput = userInput.replace(" ","") # remove any spaces from list
 
-# check that all the decay chains are valid
-chainsValid = True
+    series = userInput.split(",") # get list of series of chains from string
 
-for i in range(len(chains)):
-    for j in range(len(chains[i])):
-        if not ((chains[i][j] in dataSets.keys()) or (chains[i][j] in dataCombos.keys())):
-            print("Sorry I don't recognise " + chains[i][j] + " as a valid data set.")
-            chainsValid = False
+    # new 2d list to hold chains
+    # first index is series, second is chain in the series
+    chains = [[]]*len(series)
 
-# if all decay chains are valid loop over series 
-if chainsValid:
+    for i in range(len(series)):
+       chains[i] = series[i].split("+") 
 
-    # detect whether the user wants to run in 'fast' mode for only 1% of data
-    answered = False
-    while (not answered):
-        print("Would you like to run in fast mode to only analyse 1% of data? (yes/no)")
-        useFast = input().lower()
-        if useFast in "yes":
-            answered = True
-            fastMode = True
-        elif useFast in "no":
-            answered = True
-            fastMode = False
+    # check that all the decay chains are valid
+    chainsValid = True
 
     for i in range(len(chains)):
-        # loop over chains in the series and run the analysis
         for j in range(len(chains[i])):
-            chain = chains[i][j]
+            if not ((chains[i][j] in dataSets.keys()) or (chains[i][j] in dataCombos.keys())):
+                print("Sorry I don't recognise " + chains[i][j] + " as a valid data set.")
+                chainsValid = False
 
-            # print a message so the user knows what's up
-            print("Analysing "+chain+"...")
+    # return the chains and their validity
+    return chains, chainsValid 
 
-            # if the decay chain corresponds to data in more than one file then
-            # analyse all the files and add them
-            if (chain in dataCombos.keys()):
-                for subChain in dataCombos[chain]:
-                    print(subChain)
-                    runAnalysis(subChain, fastMode)
-                combine(dataCombos[chain], fastMode)
+# get input from user
+# keep asking until answered
+chainsValid = False
+while (not chainsValid):
+    chains, chainsValid = getInput()
+    print()
 
-                # rename the outputted file to use the input key
-                oldName = "_".join(dataCombos[chain])+fastStr(fastMode)+".root"
-                os.system("mv out"+langMode+"/"+oldName+" out"+langMode+"/"+chain+
-                        fastStr(fastMode)+".root")
-                
-            # otherwise run the analysis for the single file
-            else:
-                runAnalysis(chain,fastMode)
+# if all decay chains are valid loop over series 
+# detect whether the user wants to run in 'fast' mode for only 1% of data
+answered = False
+while (not answered):
+    print("Would you like to run in fast mode to only analyse 1% of data? (yes/no)")
+    useFast = input().lower()
+    if useFast in "yes":
+        answered = True
+        fastMode = True
+    elif useFast in "no":
+        answered = True
+        fastMode = False
 
-        # combine chains in the series if it contains more than one chain
-        if (len(chains[i])>1):
-            combine(chains[i], fastMode)
+# iterate over sums of chains from user input
+for i in range(len(chains)):
+    # loop over chains in the series and run the analysis
+    for j in range(len(chains[i])):
+        chain = chains[i][j]
+
+        # print a message so the user knows what's up
+        print("Analysing "+chain+"...")
+
+        # if the decay chain corresponds to data in more than one file then
+        # analyse all the files and add them
+        if (chain in dataCombos.keys()):
+            for subChain in dataCombos[chain]:
+                print(subChain)
+                runAnalysis(subChain, fastMode)
+            combine(dataCombos[chain], fastMode)
+
+            # rename the outputted file to use the input key
+            oldName = "_".join(dataCombos[chain])+fastStr(fastMode)+".root"
+            os.system("mv out"+langMode+"/"+oldName+" out"+langMode+"/"+chain+
+                    fastStr(fastMode)+".root")
+            
+        # otherwise run the analysis for the single file
+        else:
+            runAnalysis(chain,fastMode)
+
+    # combine chains in the series if it contains more than one chain
+    if (len(chains[i])>1):
+        combine(chains[i], fastMode)
