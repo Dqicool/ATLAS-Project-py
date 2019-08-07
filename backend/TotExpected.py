@@ -1,5 +1,4 @@
 from infofile import infos
-from keyTranslate import keyTranslate
 
 def TotExpected(dataKey):
     """
