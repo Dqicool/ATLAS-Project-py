@@ -1,4 +1,9 @@
 # Analysis.py
+# Skeleton code in python provided for you
+# In place of this comment you should write [your name] -- [the date] and update it as you go!
+# Make sure to make backups and comment as you go along :)
+
+# allow python to use ROOT
 import ROOT as r
 
 def Analyse(t,weighting):
@@ -7,13 +12,8 @@ def Analyse(t,weighting):
     # Format is t.Draw("variable_to_plot >> histogram_name (number_of_bins, x_axis_minimum, x_axis_maximum"),weighting)
 
     # Draw a histogram of number of leptons per event.
-    t.Draw("lep_n >> h_lep_n(10, 0, 8)", weighting)
+    t.Draw("lep_n >> h_lep_n(10, -0.5, 9.5)", weighting)
     
-    # histogram of ptcone/pt
-    t.Draw("lep_ptcone30/lep_pt >> h_lep_ptnorm(100,-0.1,0.3)",weighting)
-
-    # histogram of etcone/pt
-    t.Draw("lep_etcone20/lep_pt >> h_lep_etnorm(100,-0.1,0.3)",weighting)
 
     # Selection cuts can be used to only plot data which passes certain tests.
     # For second argument in t.Draw() use (weighting + "* (selection_cuts)")
@@ -24,6 +24,7 @@ def Analyse(t,weighting):
 
     # It is also possible to plot calculated quantities.
     # To make this easier one can use the function SetAlias("name","formula") to perform intermediate calculations
+
     # For example plotting the average transverse momenta of leptons in each event:
     t.SetAlias("meanPt","Sum$(lep_pt)/Length$(lep_pt)") # define meanPt
     t.Draw("meanPt >> h_lep_pt_mean(200,0,140e3)", weighting) # plot meanPt
@@ -52,5 +53,3 @@ def Analyse(t,weighting):
     h_lep_n.Write()
     h_3lep_pt.Write()
     h_lep_pt_mean.Write()
-    h_lep_ptnorm.Write()
-    h_lep_etnorm.Write()

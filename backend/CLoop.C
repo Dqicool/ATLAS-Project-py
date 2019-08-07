@@ -33,8 +33,6 @@ void CLoop::Loop(double lumFactor, bool fastMode)
 
     if (fChain == 0) return;
 
-    // open output file
-    TFile outfile("outfile.root","recreate");
 
     // book histograms
     Book();
@@ -72,6 +70,8 @@ void CLoop::Loop(double lumFactor, bool fastMode)
     }
     
     // set style of histograms and write to output file
+    // open output file
+    TFile outfile("outfile.root","recreate");
     Style();
     // end style and writing
     //
