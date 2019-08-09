@@ -7,12 +7,9 @@ sys.path.insert(0, "backend") # allow code to be imported from subdirectory
 import ROOT as r
 import os
 from Draw import Draw
-from DrawC import DrawC
 from getInput import getInput
 from infofile import infos
 from dataSets import dataSets, totRealLum, realList, dataCombos
-
-langMode = "C" # coding language to use for the analysis script
 
 def fastStr(fMode):
     """
@@ -46,14 +43,11 @@ def runAnalysis(key, fast):
 
         lumStr = "%.5E" % (lumWeight)
 
-    # launch the analysis script for the given data set with the desired language
-    if langMode == "C":
-        DrawC(filename,lumStr,fast)
-    else:
-        Draw(filename,lumStr,fast)
+    # launch the analysis script for the given data set
+    Draw(filename,lumStr,fast)
 
     # move the output to a different directory
-    os.system("mv outfile.root out" + langMode + "/" + key + fastStr(fast) + ".root")
+    os.system("mv outfile.root out/" + key + fastStr(fast) + ".root")
 
 def combine(files, fast):
     """
@@ -63,7 +57,7 @@ def combine(files, fast):
 
     # store histograms from the first section of data in a list
     totHist = []
-    sec0 = r.TFile("out"+langMode+"/"+files[0]+fastStr(fast)+".root") # first file
+    sec0 = r.TFile("out/"+files[0]+fastStr(fast)+".root") # first file
     key0 = sec0.GetListOfKeys() # first list of keys
     for j in range(len(key0)):
         obj0 = sec0.Get(key0[j].GetName()) # get first object
@@ -73,7 +67,7 @@ def combine(files, fast):
     # loop over other output files
     for i in range(1,len(files)):
         # read in output file for this section of data
-        secFile = r.TFile("out" + langMode + "/" + files[i] + fastStr(fast) + ".root")
+        secFile = r.TFile("out/" + files[i] + fastStr(fast) + ".root")
         
         # get histogram keys
         keys = secFile.GetListOfKeys()
@@ -86,7 +80,7 @@ def combine(files, fast):
 
     # save the combined histograms to a file
     name = "_".join(files) # name of output file
-    totFile = r.TFile("out"+langMode+"/"+ name + fastStr(fast) + ".root","RECREATE")
+    totFile = r.TFile("out/"+ name + fastStr(fast) + ".root","RECREATE")
     for hist in totHist:
         hist.Write()
     totFile.Close()
@@ -134,7 +128,7 @@ for i in range(len(chains)):
 
             # rename the outputted file to use the input key
             oldName = "_".join(dataCombos[chain])+fastStr(fastMode)+".root"
-            os.system("mv out"+langMode+"/"+oldName+" out"+langMode+"/"+chain+
+            os.system("mv out/"+oldName+" out/"+chain+
                     fastStr(fastMode)+".root")
             
         # otherwise run the analysis for the single file
