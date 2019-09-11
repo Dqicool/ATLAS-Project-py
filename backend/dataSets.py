@@ -54,7 +54,6 @@ dataCombos = {
 
         # Dominant Higgs -> 4 lepton production
         "H": ["ZH125_ZZ4lep", "WH125_ZZ4lep", "VBFH125_ZZ4lep", "ggH125_ZZ4lep"],
-        }
 
 # dictionary to identify data by short names rather than long file names, contains
 # luminosities for each dataset in femtobarns
