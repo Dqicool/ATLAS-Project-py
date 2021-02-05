@@ -6,9 +6,10 @@ from os import listdir
 from Analysis import Analyse
 from dataSets import dirs
 
-def Draw(fileName,lumFactor,fastMode):
 
-    start_time = time.time() # get start time
+def Draw(fileName, lumFactor, fastMode):
+
+    start_time = time.time()  # get start time
 
     # search through several directories to find where the input file is located
     for path in dirs:
@@ -17,14 +18,14 @@ def Draw(fileName,lumFactor,fastMode):
             break
 
     # open the input data
-    openFile = r.TFile(correctPath+fileName)
+    openFile = r.TFile(correctPath+fileName, "READ")
 
     # open output file and canvas
     outFile = r.TFile("outfile.root","RECREATE") # file to write output to
-    canvas = r.TCanvas("Canvas","Canvas") # create a canvas
+    # canvas = r.TCanvas("Canvas","Canvas") # create a canvas
 
     # stop the canvas from popping up
-    canvas.GetCanvasImp().UnmapWindow()
+    #canvas.GetCanvasImp().UnmapWindow()
 
     # load the tree
     tree = openFile.Get('mini')
@@ -33,6 +34,7 @@ def Draw(fileName,lumFactor,fastMode):
     if fastMode:
         nEntries = int(tree.GetEntries()*0.01)
         t = tree.CloneTree(nEntries)
+        
     else:
         t = tree
         
@@ -46,9 +48,9 @@ def Draw(fileName,lumFactor,fastMode):
                 "scaleFactor_PhotonTRIGGER*scaleFactor_TauTRIGGER*scaleFactor_DiTauTRIGGER"+
                 "*"+str(lumFactor))
 
-    Analyse(t,weighting)
+    Analyse(t, weighting)
 
-    canvas.Close() # close the canvas
+    # canvas.Close()  # close the canvas
 
     # delete tree data from output file if present
     if outFile.Get("mini"):

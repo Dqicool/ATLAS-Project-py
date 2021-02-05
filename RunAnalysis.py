@@ -1,8 +1,14 @@
+#!/usr/bin/python
 # script which the user launches to ask which data sets to analyse, handle weighting and launch the
 # analysis
+print("")
+print("Dont forget you will need to restart the kernel for any edits you have made to Analysis.py to take effect, before running RunAnalysis.py!")
+print("")
 
 import sys
-sys.path.insert(0, "backend") # allow code to be imported from subdirectory
+import os 
+dir_path = os.path.dirname(os.path.realpath(__file__))
+sys.path.insert(0, dir_path + "/backend") # allow code to be imported from subdirectory
 
 import ROOT as r
 import os
@@ -98,17 +104,18 @@ while (not chainsValid):
 
 # if all decay chains are valid loop over series 
 # detect whether the user wants to run in 'fast' mode for only 1% of data
-answered = False
-while (not answered):
-    print("Would you like to run in fast mode to only analyse 1% of data? (yes/no)")
-    useFast = input().lower()
-    if useFast in "yes":
-        answered = True
-        fastMode = True
-    elif useFast in "no":
-        answered = True
-        fastMode = False
-
+# answered = False
+# while (not answered):
+#     print("Would you like to run in fast mode to only analyse 1% of data? (yes/no)")
+#     useFast = input().lower()
+#     if useFast in "yes":
+#         answered = True
+#         fastMode = True
+#     elif useFast in "no":
+#         answered = True
+#         fastMode = False
+answered = True
+fastMode = False
 # iterate over sums of chains from user input
 for i in range(len(chains)):
     # loop over chains in the series and run the analysis
@@ -138,3 +145,5 @@ for i in range(len(chains)):
     # combine chains in the series if it contains more than one chain
     if (len(chains[i])>1):
         combine(chains[i], fastMode)
+        
+print("Run completed!")

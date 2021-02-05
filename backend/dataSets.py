@@ -5,20 +5,20 @@ totRealLum = 10.064
 
 # list of directories to check for .root files
 dirs = [
-        "/data/ATLAS/2lep/Data/",
-        "/data/ATLAS/2lep/MC/",
-        "/data/ATLAS/1lep/Data/",
-        "/data/ATLAS/1lep/MC/",
-        "/data/ATLAS/GamGam/Data/",
-        "/data/ATLAS/GamGam/MC/",
-        "/data/ATLAS/1tau/Data/",
-        "/data/ATLAS/1tau/MC/",
-        "/data/ATLAS/2tau/Data/",
-        "/data/ATLAS/2tau/MC/",
-        "/data/ATLAS/1lep1tau/Data/",
-        "/data/ATLAS/1lep1tau/MC/",
-        "/data/ATLAS/1fatjet1lep/Data/",
-        "/data/ATLAS/1fatjet1lep/MC/",
+        "ATLAS/2lep/Data/",
+        "ATLAS/2lep/MC/",
+        "ATLAS/1lep/Data/",
+        "ATLAS/1lep/MC/",
+        "ATLAS/GamGam/Data/",
+        "ATLAS/GamGam/MC/",
+        "ATLAS/1tau/Data/",
+        "ATLAS/1tau/MC/",
+        "ATLAS/2tau/Data/",
+        "ATLAS/2tau/MC/",
+        "ATLAS/1lep1tau/Data/",
+        "ATLAS/1lep1tau/MC/",
+        "ATLAS/1fatjet1lep/Data/",
+        "ATLAS/1fatjet1lep/MC/",
 ]
 
 # list of keys which correspond to real datasets
@@ -53,7 +53,8 @@ dataCombos = {
         "Z": ["Zee","Zmumu","Ztautau"],
 
         # Dominant Higgs -> 4 lepton production
-        "H": ["ZH125_ZZ4lep", "WH125_ZZ4lep", "VBFH125_ZZ4lep", "ggH125_ZZ4lep"],
+        "H": ["ZH125_ZZ4lep", "WH125_ZZ4lep", "VBFH125_ZZ4lep", "ggH125_ZZ4lep"]
+}
 
 # dictionary to identify data by short names rather than long file names, contains
 # luminosities for each dataset in femtobarns

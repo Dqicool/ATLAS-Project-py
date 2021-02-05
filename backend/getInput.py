@@ -7,7 +7,7 @@ def getInput():
     """
 
     # get list of decay chains from user
-    userInput = input() # get input
+    userInput = "text" #input() # get input
 
     # check whether to read list from file or user input
     if "text" in userInput: 
